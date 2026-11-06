@@ -1,0 +1,64 @@
+name: Notify Slack
+on:
+  workflow_call:
+    inputs:
+      kind:
+        description: release, deployment, or qualification
+        required: true
+        type: string
+      outcome:
+        description: success, failure, or cancelled
+        required: true
+        type: string
+      source_sha:
+        description: Full source commit SHA; use the caller commit if a failed job produced no output
+        required: true
+        type: string
+      release:
+        description: Release tag when available
+        default: ''
+        type: string
+      environment:
+        description: Deployment or qualification environment when applicable
+        default: ''
+        type: string
+      run_id:
+        description: Caller run ID; empty uses the current run
+        default: ''
+        type: string
+      run_attempt:
+        description: Caller run attempt; empty uses the current attempt
+        default: ''
+        type: string
+    secrets:
+      SLACK_DEPLOY_BOT_TOKEN:
+        description: Same direct GitHub secret used by Operations production announcements
+        required: false
+permissions:
+  contents: read
+jobs:
+  notify:
+    name: Report ${{ inputs.kind }} ${{ inputs.outcome }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Send terminal lifecycle notification
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_DEPLOY_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ vars.SLACK_CHANNEL_ID || 'C0C6U59T614' }}
+          NOTIFICATION_KIND: ${{ inputs.kind }}
+          NOTIFICATION_OUTCOME: ${{ inputs.outcome }}
+          NOTIFICATION_SOURCE_SHA: ${{ inputs.source_sha }}
+          NOTIFICATION_RELEASE: ${{ inputs.release }}
+          NOTIFICATION_ENVIRONMENT: ${{ inputs.environment }}
+          NOTIFICATION_RUN_ID: ${{ inputs.run_id || github.run_id }}
+          NOTIFICATION_RUN_ATTEMPT: ${{ inputs.run_attempt || github.run_attempt }}
+        run: node scripts/slack-notification.ts
