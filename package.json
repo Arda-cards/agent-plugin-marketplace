@@ -4,11 +4,14 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && node scripts/validate.ts"
+    "check": "npm run typecheck && node scripts/validate.ts && claude plugin validate --strict ./plugins/arda-cards-operations && claude plugin validate --strict ."
   },
   "devDependencies": {
+    "@anthropic-ai/claude-code": "2.1.310",
     "@types/node": "24.19.0",
     "typescript": "5.9.3"
   },
-  "engines": { "node": ">=24" }
+  "engines": {
+    "node": ">=24"
+  }
 }

@@ -6,9 +6,15 @@ The production MCP endpoint is `https://arda-cards-mcp-prod.arda-cards.workers.d
 
 Follow the installation commands in the [README](../README.md). Use `/mcp` to authenticate `arda-cards-prod`, then discover the available tools.
 
-## Other client surfaces
+## Claude Cloud and Claude Desktop
 
-Claude Cloud, Claude Desktop, ChatGPT Desktop and ChatGPT Cloud have different connection and installation interfaces. Their exact setup and support for remote MCP OAuth, requested scopes, and confirmation flows must be verified before customer instructions are published. Availability may depend on your account, plan, workspace settings and client version. The Claude Code plugin and skills are not automatically installed in ChatGPT by adding an MCP connection.
+In Claude, open **Customize → Connectors → Add → Custom → Web**. Enter a name such as `Arda Cards` and the production MCP endpoint above, then follow the authentication prompts. See [Anthropic's custom connector instructions](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp) for current plan and administrator requirements. This adds a connector; it does not install the Claude Code plugin or its skills.
+
+## ChatGPT Cloud and ChatGPT Desktop
+
+Add a custom MCP server using [OpenAI's instructions](https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt), enter the production endpoint above, and sign in when prompted. Access depends on your plan and workspace settings. A custom MCP connection does not install Claude Code skills in ChatGPT.
+
+These connection paths, requested scopes and confirmation flows still require end-to-end qualification with the deployed production service on each client and version. Interface labels and availability can change.
 
 ## Confirmations
 
