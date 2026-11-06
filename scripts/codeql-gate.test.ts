@@ -79,3 +79,22 @@ await test('both language reports are mandatory and every SARIF report is evalua
   writeFileSync(join(directory, 'additional.sarif'), JSON.stringify(sarif('8')));
   assert.throws(() => checkDirectory(directory), /1 blocking/);
 });
+
+await test('resolves SARIF grouped extension rules and rejects invalid references', () => {
+  const properties = { 'security-severity': '6.9' };
+  const component = { index: 0, name: 'security-queries' };
+  const grouped = {
+    version: '2.1.0',
+    runs: [{
+      tool: { driver: { name: 'CodeQL', rules: [] }, extensions: [
+        { name: 'security-queries', rules: [{ id: 'example', properties }] },
+      ] },
+      results: [{ ruleId: 'example', level: 'warning', rule: { index: 0, toolComponent: component } }],
+    }],
+  };
+  assert.equal(blockingFindings(grouped), 0);
+  properties['security-severity'] = '9';
+  assert.equal(blockingFindings(grouped), 1);
+  component.index = 1;
+  assert.throws(() => blockingFindings(grouped), /component/);
+});

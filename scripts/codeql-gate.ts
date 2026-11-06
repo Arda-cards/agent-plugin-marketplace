@@ -19,10 +19,13 @@ export function blockingFindings(document: unknown) {
     if (!object(candidate)) throw new Error('Incomplete or unsuccessful CodeQL analysis.');
     const tool = object(candidate.tool) ? candidate.tool : undefined;
     const driver = object(tool?.driver) ? tool.driver : undefined;
-    const rules = driver?.rules;
+    const rules = driver?.rules ?? [];
+    const extensions = tool?.extensions ?? [];
     if (
       driver?.name !== 'CodeQL' ||
       !Array.isArray(rules) ||
+      !Array.isArray(extensions) ||
+      extensions.some((extension: unknown) => !object(extension)) ||
       rules.some((rule: unknown) => !object(rule)) ||
       !Array.isArray(candidate.results) ||
       (candidate.invocations !== undefined && !Array.isArray(candidate.invocations)) ||
@@ -34,9 +37,27 @@ export function blockingFindings(document: unknown) {
       throw new Error('Incomplete or unsuccessful CodeQL analysis.');
     for (const result of candidate.results as unknown[]) {
       if (!object(result)) throw new Error('Finding has no matching CodeQL rule.');
-      const rule = (rules as unknown[]).find(
+      const reference = result.rule;
+      if (reference !== undefined && !object(reference)) throw new Error('Malformed rule reference.');
+      const component = object(reference) ? reference.toolComponent : undefined;
+      let selectedRules: unknown[] = rules as unknown[];
+      if (component !== undefined) {
+        if (!object(component)) throw new Error('Malformed rule component.');
+        const index = component.index;
+        if (typeof index !== 'number' || !Number.isSafeInteger(index) || index < 0)
+          throw new Error('Malformed rule component index.');
+        const selected: unknown = (extensions as unknown[])[index];
+        if (!object(selected) || !Array.isArray(selected.rules) ||
+            (component.name !== undefined && component.name !== selected.name))
+          throw new Error('Missing matching rule component.');
+        selectedRules = selected.rules as unknown[];
+      }
+      const rule = selectedRules.find(
         (entry): entry is Record<string, unknown> => object(entry) && entry.id === result.ruleId,
       );
+      if (object(reference) && reference.index !== undefined &&
+          (typeof reference.index !== 'number' || selectedRules[reference.index] !== rule))
+        throw new Error('Rule index does not match the referenced rule.');
       if (!rule) throw new Error('Finding has no matching CodeQL rule.');
       const properties = object(rule.properties) ? rule.properties : undefined;
       const severity = properties?.['security-severity'];
