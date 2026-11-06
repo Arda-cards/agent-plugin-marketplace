@@ -12,7 +12,7 @@ Help the user work with the selected Arda environment MCP server.
    needed tools first. Refresh discovery after server schema changes as the client requires.
 2. If the server needs authentication, direct the user to `/mcp`, select the
    plugin's intended connection, and complete browser sign-in. Confirm that consent
-   includes `workflow:write`, `email:read` and `email:manage`; plugin `0.4.0` requests
+   includes `workflow:write`, `email:read` and `email:manage`; plugin `0.1.0` requests
    `workflow:write email:read email:manage offline_access`. Existing grants do not expand automatically.
    If only `query_business_affiliates` and `get_business_affiliate` appear, explain
    that an affiliate-only grant exposes exactly those two tools. Have the user update

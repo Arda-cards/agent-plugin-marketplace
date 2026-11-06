@@ -22,3 +22,11 @@ Contact [customer-success@arda.cards](mailto:customer-success@arda.cards) privat
 ## Terms
 
 Copyright © Arda Systems. All rights reserved. Use is subject to [Arda's Terms of Use](https://app.termly.io/policy-viewer/policy.html?policyUUID=08a78355-5593-4082-8f1d-edd32dd53aec) and [Privacy Policy](https://app.termly.io/policy-viewer/policy.html?policyUUID=eb58aa15-d066-45ca-9f63-0e3b1319bdfa). Do not reverse engineer or distribute this package without Arda's prior written permission, except as permitted by applicable law and applicable platform terms. Contact customer-success@arda.cards for permission requests.
+
+## Maintaining a release
+
+The `package.json` version and generated plugin version must agree. The initial version is
+`0.1.0`; the changelog records the changes for each release. The plugin is generated from
+shared Arda sources and should be promoted through a reviewed pull request. An authorized
+maintainer must compare it against the matching shared source before release; public CI
+cannot read the internal source. Run `npm ci` and `npm run check` to validate this checkout.

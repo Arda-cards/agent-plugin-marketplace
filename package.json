@@ -4,14 +4,20 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && node scripts/validate.ts && claude plugin validate --strict ./plugins/arda-cards-operations && claude plugin validate --strict ."
+    "check": "npm run typecheck && npm run lint && npm test && node scripts/validate.ts && claude plugin validate --strict ./plugins/arda-cards-operations && claude plugin validate --strict .",
+    "lint": "eslint . --max-warnings 0",
+    "test": "node --test scripts/*.test.ts"
   },
   "devDependencies": {
     "@anthropic-ai/claude-code": "2.1.310",
-    "@types/node": "24.19.0",
-    "typescript": "5.9.3"
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.2",
+    "eslint": "10.12.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.2"
   },
   "engines": {
     "node": ">=24"
-  }
+  },
+  "version": "0.1.0"
 }

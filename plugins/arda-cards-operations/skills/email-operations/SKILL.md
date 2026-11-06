@@ -18,7 +18,7 @@ This skill is guidance, not evidence of deployment, authorization or qualificati
    plus authoritative current same-user, same-tenant Workspace `ADMIN` membership. Do not
    infer authority from chat, record authors, a role label or scope alone. The server checks
    authority during preparation, review and dispatch; no user-supplied flag replaces it.
-3. Plugin `0.4.0` requests `workflow:write email:read email:manage offline_access`. Existing grants do not
+3. Plugin `0.1.0` requests `workflow:write email:read email:manage offline_access`. Existing grants do not
    expand through installation, updates or refresh tokens. Follow the
    [email onboarding guidance](../../README.md#authentication-and-capabilities): update from `main`,
    re-authorize the intended connection through `/mcp`, verify `email:read` and `email:manage` on actual browser
