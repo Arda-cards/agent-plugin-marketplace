@@ -464,3 +464,19 @@ await test('only permits the initial changelog when absent on the exact base', a
   f.github.rest.repos.getContent = () => Promise.reject(Object.assign(new Error('Forbidden'), { status: 403 }));
   await assert.rejects(checkChangelogEvent(f.prEvent, repo, f.github), /Forbidden/);
 });
+
+await test('merge-method groups validate source commits and the queue entry chain', async () => {
+  const f = fixture();
+  f.commits.splice(0, f.commits.length, { sha: sha(1) }, { sha: sha(10) }, { sha: sha(2) }, { sha: sha(11) });
+  f.queueEvent.merge_group.head_sha = sha(11);
+  f.associations.clear();
+  f.associations.set(sha(1), [f.prs.get(1)]);
+  f.associations.set(sha(2), [f.prs.get(2)]);
+  f.entries.push(
+    { headCommit: { oid: sha(10) }, baseCommit: { oid: sha(0) }, pullRequest: { number: 1, headRefOid: sha(1) } },
+    { headCommit: { oid: sha(11) }, baseCommit: { oid: sha(10) }, pullRequest: { number: 2, headRefOid: sha(2) } },
+  );
+  assert.deepEqual(await checkChangelogEvent(f.queueEvent, repo, f.github), { pullRequests: [1, 2], entries: 2 });
+  f.associations.delete(sha(2));
+  await assert.rejects(checkChangelogEvent(f.queueEvent, repo, f.github), /not associated/);
+});

@@ -318,24 +318,34 @@ async function queuePullRequests(group: MergeGroup | undefined, repo: Repository
   }
   const prs = new Map<number, string>();
   let previous = group.base_sha;
-  let mapped = 0;
+  const sourceCommits: string[] = [];
   for (const commit of commits) {
     const entry = queued.get(commit.sha);
-    if (entry) {
-      if (
-        entry.baseCommit?.oid !== previous ||
-        !entry.pullRequest ||
-        prs.has(entry.pullRequest.number)
-      )
-        throw new Error('Merge queue entry does not match the queued commit chain.');
-      prs.set(entry.pullRequest.number, entry.pullRequest.headRefOid);
-      mapped++;
+    if (!entry) {
+      sourceCommits.push(commit.sha);
+      continue;
     }
+    if (entry.baseCommit?.oid !== previous || !entry.pullRequest || prs.has(entry.pullRequest.number))
+      throw new Error('Merge queue entry does not match the queued commit chain.');
+    prs.set(entry.pullRequest.number, entry.pullRequest.headRefOid);
     previous = commit.sha;
   }
-  if (mapped > 0) {
-    if (mapped !== commits.length || prs.size > limits.pullRequests)
+  if (prs.size > 0) {
+    if (previous !== group.head_sha || prs.size > limits.pullRequests)
       throw new Error('Merge queue commit chain is incomplete or exceeds the PR limit.');
+    let associationCount = 0;
+    for (const sha of sourceCommits) {
+      const associations = await arrayPages(github.rest.repos.listPullRequestsAssociatedWithCommit,
+        { ...repo, commit_sha: sha }, limits.associations, 'Associated pull requests');
+      associationCount += associations.length;
+      if (associationCount > limits.associations) throw new Error('Merge group exceeds the supported association limit.');
+      let matched = false;
+      for (const pr of associations) {
+        requirePullRequest(pr);
+        if (eligible(pr, repo) && prs.get(pr.number) === pr.head.sha) matched = true;
+      }
+      if (!matched) throw new Error('Source commit is not associated with a queued PR.');
+    }
     return prs;
   }
   let associationCount = 0;
