@@ -1,0 +1,14 @@
+{
+  "name": "arda-cards-public-marketplace",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && node scripts/validate.ts"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.0",
+    "typescript": "5.9.3"
+  },
+  "engines": { "node": ">=24" }
+}

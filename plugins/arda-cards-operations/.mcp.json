@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "arda-cards-prod": {
+      "type": "http",
+      "url": "https://arda-cards-mcp-prod.arda-cards.workers.dev/mcp",
+      "oauth": {
+        "scopes": "workflow:write email:read email:manage offline_access"
+      }
+    }
+  }
+}
