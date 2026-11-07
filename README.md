@@ -30,3 +30,10 @@ The `package.json` version and generated plugin version must agree. The initial 
 shared Arda sources and should be promoted through a reviewed pull request. An authorized
 maintainer must compare it against the matching shared source before release; public CI
 cannot read the internal source. Run `npm ci` and `npm run check` to validate this checkout.
+
+Put release notes in each pull request under `## CHANGELOG`; do not edit the assembled
+changelog directly. After validation succeeds on `main`, release automation publishes
+the configured package version and records the date. Changes made without a package
+version increase are collected in the next release. Release automation requires the
+configured changelog GitHub App and its branch-rules bypass, plus the optional Slack
+notification secret; repository administrators maintain these credentials.
