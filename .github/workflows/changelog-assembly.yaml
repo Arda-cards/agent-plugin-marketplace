@@ -66,7 +66,8 @@ jobs:
     outputs:
       sha: ${{ steps.assembly.outputs.sha }}
       deploy: ${{ steps.assembly.outputs.deploy }}
-      tag: ${{ steps.version.outputs.tag }}
+      published_sha: ${{ steps.assembly.outputs.published_sha }}
+      published_tag: ${{ steps.assembly.outputs.published_tag }}
     steps:
       - name: Create changelog bot token
         id: app-token
@@ -92,20 +93,16 @@ jobs:
         env:
           GITHUB_SHA: ${{ needs.source.outputs.sha }}
           GITHUB_TOKEN: ${{ github.token }}
-      - name: Record released version
-        id: version
-        if: steps.assembly.outputs.deploy == 'true'
-        run: node --input-type=module -e 'import {readFileSync,appendFileSync} from "node:fs"; const {version}=JSON.parse(readFileSync("package.json","utf8")); if(!/^\d+\.\d+\.\d+$/.test(version)) throw new Error("Invalid release version"); appendFileSync(process.env.GITHUB_OUTPUT, `tag=v${version}\n`);'
   notify-release:
     needs: [source, assemble]
     if: >-
       always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') ||
-      needs.assemble.outputs.deploy == 'true')
+      needs.assemble.outputs.published_tag != '')
     uses: ./.github/workflows/notify-slack.yaml
     with:
       kind: release
       outcome: ${{ contains(needs.*.result, 'failure') && 'failure' || contains(needs.*.result, 'cancelled') && 'cancelled' || 'success' }}
-      source_sha: ${{ needs.assemble.outputs.sha || needs.source.outputs.sha || github.event.workflow_run.head_sha }}
-      release: ${{ needs.assemble.outputs.tag }}
+      source_sha: ${{ needs.assemble.outputs.published_sha || needs.assemble.outputs.sha || needs.source.outputs.sha || github.event.workflow_run.head_sha }}
+      release: ${{ needs.assemble.outputs.published_tag }}
     secrets:
       SLACK_DEPLOY_BOT_TOKEN: ${{ secrets.SLACK_DEPLOY_BOT_TOKEN }}

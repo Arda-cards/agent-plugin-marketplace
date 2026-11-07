@@ -35,6 +35,7 @@ const github = releaseGithub(repository, token);
 // and notes in that assembly's own tree. A run can push its assembly and then fail to publish; a
 // later run, for the same source or a newer one, publishes it here. The walk stops at the newest
 // assembly already released, because every run reconciles before it assembles.
+let published: { sha: string; tag: string } | undefined;
 async function publishMissingReleases() {
   const missing: { sha: string; version: string }[] = [];
   for (const line of git('log', '--first-parent', '--format=%H%x09%s').split('\n')) {
@@ -58,12 +59,13 @@ async function publishMissingReleases() {
       name: `v${version}`,
       body: notes,
     });
+    published = { sha, tag: `v${version}` };
   }
 }
 function output(sha: string, deploy: boolean) {
   const outputPath = process.env.GITHUB_OUTPUT;
   if (!outputPath) throw new Error('Expected GitHub output path');
-  appendFileSync(outputPath, `sha=${sha}\ndeploy=${deploy}\n`);
+  appendFileSync(outputPath, `sha=${sha}\ndeploy=${deploy}\npublished_sha=${published?.sha ?? ''}\npublished_tag=${published?.tag ?? ''}\n`);
 }
 
 const head = git('rev-parse', 'HEAD');

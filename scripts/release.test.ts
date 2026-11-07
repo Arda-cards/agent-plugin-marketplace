@@ -180,6 +180,7 @@ await test('a release whose publication failed is published when another PR merg
   assert.deepEqual(releases.map((release) => [release.tag_name, release.target_commitish]),
     [['v0.1.0', firstAssembly]]);
   assert.match(readFileSync(f.output, 'utf8'), /deploy=false/);
+  assert.match(readFileSync(f.output, 'utf8'), new RegExp(`published_sha=${firstAssembly}\\npublished_tag=v0\\.1\\.0`));
   assert.equal(f.git('rev-parse', 'HEAD'), third);
 
 });
