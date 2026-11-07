@@ -15,8 +15,8 @@ import { selectAssemblySource } from './assembly-source.ts';
 const lockSchema = z.object({
   packages: z.object({
     '': z.object({ version: z.string(), workspaces: z.array(z.string()) }),
-    'packages/api-proxy': z.object({ version: z.string() }),
-    'node_modules/@arda-cards/api-auto-proxy': z.object({
+    'packages/example': z.object({ version: z.string() }),
+    'node_modules/fixture-dependency': z.object({
       resolved: z.string(),
       link: z.boolean(),
     }),
@@ -25,7 +25,7 @@ const lockSchema = z.object({
 
 const releaseScript = fileURLToPath(new URL('./release.ts', import.meta.url));
 function fixture(t: TestContext) {
-  const root = mkdtempSync(join(tmpdir(), 'mcp-release-'));
+  const root = mkdtempSync(join(tmpdir(), 'public-release-'));
   t.after(() => rmSync(root, { recursive: true, force: true }));
   const git = (...args: string[]) =>
     execFileSync('git', args, {
@@ -43,8 +43,8 @@ function fixture(t: TestContext) {
     name: 'release-fixture',
     version: '0.1.0',
     workspaces: ['packages/*'],
-    dependencies: { '@arda-cards/api-auto-proxy': '*' },
-    scripts: { check: 'node -e "process.exit(0)"', 'package:generate': `node -e "const f=require('fs');f.writeFileSync('plugins/arda-cards-internal/fixture',JSON.parse(f.readFileSync('package.json','utf8')).version)"` },
+    dependencies: { 'fixture-dependency': '*' },
+    scripts: { check: 'node -e "process.exit(0)"', 'package:generate': `node -e "const f=require('fs');f.writeFileSync('plugins/arda-cards-operations/fixture',JSON.parse(f.readFileSync('package.json','utf8')).version)"` },
   };
   writeFileSync(join(root, 'package.json'), JSON.stringify(pkg));
   writeFileSync(
@@ -53,16 +53,16 @@ function fixture(t: TestContext) {
       version: pkg.version,
       packages: {
         '': { version: pkg.version, workspaces: pkg.workspaces, dependencies: pkg.dependencies },
-        'packages/api-proxy': { name: '@arda-cards/api-auto-proxy', version: '0.1.0' },
-        'node_modules/@arda-cards/api-auto-proxy': { resolved: 'packages/api-proxy', link: true },
+        'packages/example': { name: 'fixture-dependency', version: '0.1.0' },
+        'node_modules/fixture-dependency': { resolved: 'packages/example', link: true },
       },
     }),
   );
   writeFileSync(join(root, 'CHANGELOG.md'), bootstrap);
   mkdirSync(join(root, '.claude-plugin'));
-  mkdirSync(join(root, 'plugins/arda-cards-internal'), { recursive: true });
+  mkdirSync(join(root, 'plugins/arda-cards-operations'), { recursive: true });
   writeFileSync(join(root, '.claude-plugin/marketplace.json'), '{}');
-  writeFileSync(join(root, 'plugins/arda-cards-internal/fixture'), pkg.version);
+  writeFileSync(join(root, 'plugins/arda-cards-operations/fixture'), pkg.version);
   git('add', 'package.json', 'package-lock.json', 'CHANGELOG.md', '.claude-plugin', 'plugins');
   git('commit', '-m', 'Initialize repository');
   const commits: string[] = [];
@@ -126,9 +126,9 @@ await test('assembly recovers queued merges, pushes one checked version, and tar
   const lock = lockSchema.parse(
     JSON.parse(readFileSync(join(f.root, 'package-lock.json'), 'utf8')),
   );
-  assert.equal(lock.packages['packages/api-proxy'].version, '0.1.0');
-  assert.deepEqual(lock.packages['node_modules/@arda-cards/api-auto-proxy'], {
-    resolved: 'packages/api-proxy',
+  assert.equal(lock.packages['packages/example'].version, '0.1.0');
+  assert.deepEqual(lock.packages['node_modules/fixture-dependency'], {
+    resolved: 'packages/example',
     link: true,
   });
   assert.deepEqual(lock.packages[''].workspaces, ['packages/*']);
