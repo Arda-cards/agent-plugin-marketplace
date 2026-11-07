@@ -1,0 +1,109 @@
+name: Post-Merge Changelog Assembly
+on:
+  workflow_run:
+    workflows: [Validate marketplace]
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  source:
+    name: Validate checked main source
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      sha: ${{ steps.source.outputs.sha }}
+      assemble: ${{ steps.source.outputs.assemble }}
+      checkout_sha: ${{ steps.source.outputs.checkout_sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.workflow_sha }}
+      - name: Authenticate CI source and refuse assembly loops
+        id: source
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const { pathToFileURL } = require('node:url');
+            const { validateCiSource } = await import(pathToFileURL(`${process.env.GITHUB_WORKSPACE}/scripts/lifecycle-source.ts`).href);
+            const { selectAssemblySource } = await import(pathToFileURL(`${process.env.GITHUB_WORKSPACE}/scripts/assembly-source.ts`).href);
+            const { data: run } = await github.rest.actions.getWorkflowRun({ ...context.repo, run_id: context.payload.workflow_run.id });
+            const { data: commit } = await github.rest.repos.getCommit({ ...context.repo, ref: run.head_sha });
+            const source = validateCiSource(run, `${context.repo.owner}/${context.repo.repo}`, commit.commit.message);
+            core.setOutput('sha', source.sourceSha);
+            if (!source.assemble) {
+              core.setOutput('assemble', 'false');
+              return;
+            }
+            const { data: main } = await github.rest.git.getRef({ ...context.repo, ref: 'heads/main' });
+            const { data: head } = await github.rest.repos.getCommit({ ...context.repo, ref: main.object.sha });
+            let recovery = {};
+            if (main.object.sha !== source.sourceSha &&
+                head.commit.message.startsWith('chore: assemble CHANGELOG ') &&
+                head.commit.message.split('\n').includes(`Changelog-Source: ${source.sourceSha}`)) {
+              const { data: comparison } = await github.rest.repos.compareCommitsWithBasehead({ ...context.repo, basehead: `${source.sourceSha}...${main.object.sha}` });
+              recovery = { changedFiles: comparison.files };
+            }
+            const selection = selectAssemblySource({ sourceSha: source.sourceSha, mainSha: main.object.sha,
+              headMessage: head.commit.message, headParents: head.parents.map(parent => parent.sha), ...recovery });
+            core.setOutput('assemble', String(selection.assemble));
+            core.setOutput('checkout_sha', selection.checkoutSha);
+  assemble:
+    name: Assemble changelog and release
+    needs: source
+    if: needs.source.outputs.assemble == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: changelog-assembly
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      actions: read
+      pull-requests: read
+    outputs:
+      sha: ${{ steps.assembly.outputs.sha }}
+      deploy: ${{ steps.assembly.outputs.deploy }}
+      published_sha: ${{ steps.assembly.outputs.published_sha }}
+      published_tag: ${{ steps.assembly.outputs.published_tag }}
+    steps:
+      - name: Create changelog bot token
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        env:
+          NODE_USE_ENV_PROXY: '1'
+        with:
+          app-id: ${{ secrets.CHANGELOG_BOT_APP_ID }}
+          private-key: ${{ secrets.CHANGELOG_BOT_PRIVATE_KEY }}
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.source.outputs.checkout_sha }}
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci
+      - name: Reconcile releases and assemble all outstanding PRs
+        id: assembly
+        run: node scripts/release.ts
+        env:
+          GITHUB_SHA: ${{ needs.source.outputs.sha }}
+          GITHUB_TOKEN: ${{ github.token }}
+  notify-release:
+    needs: [source, assemble]
+    if: >-
+      always() && (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') ||
+      needs.assemble.outputs.published_tag != '')
+    uses: ./.github/workflows/notify-slack.yaml
+    with:
+      kind: release
+      outcome: ${{ contains(needs.*.result, 'failure') && 'failure' || contains(needs.*.result, 'cancelled') && 'cancelled' || 'success' }}
+      source_sha: ${{ needs.assemble.outputs.published_sha || needs.assemble.outputs.sha || needs.source.outputs.sha || github.event.workflow_run.head_sha }}
+      release: ${{ needs.assemble.outputs.published_tag }}
+    secrets:
+      SLACK_DEPLOY_BOT_TOKEN: ${{ secrets.SLACK_DEPLOY_BOT_TOKEN }}

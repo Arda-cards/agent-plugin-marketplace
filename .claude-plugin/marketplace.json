@@ -1,0 +1,14 @@
+{
+  "name": "arda-cards",
+  "owner": {
+    "name": "Arda"
+  },
+  "plugins": [
+    {
+      "name": "arda-cards-operations",
+      "source": "./plugins/arda-cards-operations",
+      "description": "Connect to Arda prod for catalogue, card and email workflows."
+    }
+  ],
+  "description": "Arda operations marketplace for prod."
+}

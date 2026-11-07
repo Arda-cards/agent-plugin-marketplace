@@ -1,0 +1,15 @@
+{
+  "name": "arda-cards-operations",
+  "version": "0.1.0",
+  "description": "Connect to Arda prod for catalogue, card and email workflows.",
+  "author": {
+    "name": "Arda"
+  },
+  "keywords": [
+    "arda",
+    "mcp",
+    "catalogue",
+    "kanban",
+    "email"
+  ]
+}
