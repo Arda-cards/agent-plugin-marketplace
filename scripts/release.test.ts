@@ -92,7 +92,7 @@ function fixture(t: TestContext) {
   const save = () => writeFileSync(statePath, JSON.stringify(state));
   save();
   const preload = fileURLToPath(new URL('./release-test-fixture.ts', import.meta.url));
-  const run = (source = commits[1]) => {
+  const run = (source = commits[1], attempt = '1') => {
     writeFileSync(output, '');
     return spawnSync(process.execPath, ['--import', preload, releaseScript], {
       cwd: root,
@@ -100,6 +100,8 @@ function fixture(t: TestContext) {
       env: {
         ...process.env,
         GITHUB_SHA: source,
+        GITHUB_RUN_ID: '123',
+        GITHUB_RUN_ATTEMPT: attempt,
         GITHUB_REPOSITORY: 'fixture/repository',
         GITHUB_TOKEN: 'dummy-test-token',
         GITHUB_OUTPUT: output,
@@ -296,4 +298,25 @@ await test('accumulated entries are released when the promoted package version i
   assert.deepEqual(releases.map((release) => release.tag_name), ['v0.1.0', 'v0.2.0']);
   assert.match(releases[1]?.body ?? '', /Change 3\. \(#3\)/);
   assert.match(releases[1]?.body ?? '', /Change 4\. \(#4\)/);
+});
+
+await test('recovery announces a release created before verification failed, but routine reruns do not', (t) => {
+  const f = fixture(t);
+  f.state.failVerificationReads = 3;
+  f.save();
+  const failed = f.run();
+  assert.equal(failed.status, 1, failed.stderr);
+  const assembly = f.git('rev-parse', 'HEAD');
+  assert.equal(readState(f.statePath).releases.length, 1);
+  assert.equal(readFileSync(f.output, 'utf8'), '');
+  const recovered = f.run(f.commits[1], '2');
+  assert.equal(recovered.status, 0, recovered.stderr);
+  assert.match(readFileSync(f.output, 'utf8'), new RegExp(`published_sha=${assembly}\\npublished_tag=v0\\.1\\.0`));
+  const state = readState(f.statePath);
+  state.priorConclusion = 'success';
+  writeFileSync(f.statePath, JSON.stringify(state));
+  const routine = f.run(f.commits[1], '3');
+  assert.equal(routine.status, 0, routine.stderr);
+  assert.match(readFileSync(f.output, 'utf8'), /published_sha=\npublished_tag=\n/);
+  assert.equal(readState(f.statePath).releases.length, 1);
 });

@@ -19,6 +19,8 @@ export const stateSchema = z.object({
   posts: z.number(),
   calls: z.number(),
   wrongTag: z.boolean().optional(),
+  failVerificationReads: z.number().optional(),
+  priorConclusion: z.string().optional(),
 });
 export type ReleaseState = z.infer<typeof stateSchema>;
 export const readState = (path: string): ReleaseState =>
@@ -32,7 +34,9 @@ if (statePath) {
     const path = new URL(input instanceof Request ? input.url : input).pathname;
     let data: unknown;
     let status = 200;
-    if (path.includes('/commits/')) {
+    if (path.includes('/actions/runs/')) {
+      data = { total_count: 1, jobs: [{ name: 'Assemble changelog and release', conclusion: state.priorConclusion ?? 'failure' }] };
+    } else if (path.includes('/commits/')) {
       const sha = path.split('/')[5];
       assert.ok(sha && state.commits[sha], `Unexpected commit ${sha}`);
       data = [{ number: state.commits[sha], merged_at: '2026-10-16', base: { ref: 'main' } }];
@@ -42,7 +46,11 @@ if (statePath) {
       const tag = path.split('/').pop();
       assert.ok(tag);
       data = state.releases.find((release) => release.tag_name === decodeURIComponent(tag));
-      if (!data) {
+      if (data && (state.failVerificationReads ?? 0) > 0) {
+        state.failVerificationReads = (state.failVerificationReads ?? 0) - 1;
+        status = 503;
+        data = { message: 'temporary failure' };
+      } else if (!data) {
         status = 404;
         data = { message: 'Not Found' };
       }

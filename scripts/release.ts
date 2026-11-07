@@ -36,13 +36,16 @@ const github = releaseGithub(repository, token);
 // later run, for the same source or a newer one, publishes it here. The walk stops at the newest
 // assembly already released, because every run reconciles before it assembles.
 let published: { sha: string; tag: string } | undefined;
-async function publishMissingReleases() {
+async function publishMissingReleases(reportVerifiedRecovery = false) {
   const missing: { sha: string; version: string }[] = [];
   for (const line of git('log', '--first-parent', '--format=%H%x09%s').split('\n')) {
     if (!line.slice(41).startsWith(assemblyPrefix)) continue;
     const sha = line.slice(0, 40);
     const version = (JSON.parse(git('show', `${sha}:package.json`)) as PackageVersion).version;
-    if (await github.published(`v${version}`, sha)) break;
+    if (await github.published(`v${version}`, sha)) {
+      if (reportVerifiedRecovery && sha === git('rev-parse', 'HEAD')) published = { sha, tag: `v${version}` };
+      break;
+    }
     missing.unshift({ sha, version });
   }
   for (const { sha, version } of missing) {
@@ -75,7 +78,23 @@ if (head !== source && !recovering) {
   console.log('Main has moved; a newer checked run will assemble any outstanding merges.');
   output(head, false);
 } else {
-  await publishMissingReleases();
+  let reportVerifiedRecovery = false;
+  const attempt = process.env.GITHUB_RUN_ATTEMPT ?? '1';
+  if (!/^[1-9][0-9]*$/.test(attempt) || !Number.isSafeInteger(Number(attempt)))
+    throw new Error('Invalid GitHub run attempt');
+  if (recovering && Number(attempt) > 1) {
+    const runId = process.env.GITHUB_RUN_ID ?? '';
+    if (!/^[1-9][0-9]*$/.test(runId)) throw new Error('Invalid GitHub run ID');
+    const previous = await github.json<{ total_count: number; jobs: { name: string; conclusion: string | null }[] }>(
+      `/actions/runs/${runId}/attempts/${Number(attempt) - 1}/jobs?per_page=100`);
+    if (!Number.isSafeInteger(previous.total_count) || !Array.isArray(previous.jobs) ||
+        previous.total_count !== previous.jobs.length || previous.total_count > 100)
+      throw new Error('Incomplete previous workflow attempt');
+    const assembly = previous.jobs.filter((job) => job.name === 'Assemble changelog and release');
+    if (assembly.length !== 1 || !assembly[0]?.conclusion) throw new Error('Missing previous assembly outcome');
+    reportVerifiedRecovery = ['failure', 'cancelled', 'timed_out'].includes(assembly[0].conclusion);
+  }
+  await publishMissingReleases(reportVerifiedRecovery);
   if (!recovering) {
     const history = git('log', '--first-parent', '--format=%H%x09%s').split('\n');
     const last = history.find((line) => line.slice(41).startsWith(assemblyPrefix));
