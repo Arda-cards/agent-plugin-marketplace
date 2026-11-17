@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run lint && npm test && node scripts/validate.ts && claude plugin validate --strict ./plugins/arda-cards-operations && claude plugin validate --strict .",
+    "check": "npm run typecheck && npm run lint && npm test && node scripts/validate.ts && claude plugin validate --strict ./plugins/arda-cards-operations && claude plugin validate --strict ./plugins/make-integration-app-public && claude plugin validate --strict .",
     "lint": "eslint . --max-warnings 0",
     "test": "node --test scripts/*.test.ts"
   },
@@ -20,5 +20,5 @@
   "engines": {
     "node": ">=24"
   },
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

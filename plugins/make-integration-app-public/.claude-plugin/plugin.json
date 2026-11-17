@@ -1,0 +1,16 @@
+{
+  "name": "make-integration-app-public",
+  "version": "0.1.0",
+  "description": "Build, run and diagnose Arda Beta (Public) production scenarios through Make MCP using your own connections.",
+  "author": {
+    "name": "Arda"
+  },
+  "repository": "https://github.com/Arda-cards/agent-plugin-marketplace",
+  "keywords": [
+    "make",
+    "arda",
+    "scenarios",
+    "automation",
+    "mcp"
+  ]
+}

@@ -1,0 +1,1530 @@
+{
+  "source": null,
+  "app": "app#arda-beta-public-2d4282-myuvmd",
+  "version": 1,
+  "groups": [
+    "v1.operations.demand.demand-item.demand-item",
+    "v1.procurement.order.order-line.order-line",
+    "v1.procurement.order.order.order",
+    "v1.reference-data.business-affiliate.business-affiliate.lookup",
+    "v1.reference-data.item.item-supply.supply",
+    "v1.reference.business-affiliate.business-affiliate.business-affiliate",
+    "v1.reference.item.item.item",
+    "v1.reference.item.item.settings",
+    "v1.resources.inventory.inventory-pool.inventory-pool",
+    "v1.resources.kanban.kanban-card.kanban-card",
+    "v1.shop-access.email.configuration.configuration",
+    "v1.shop-access.email.diagnostics.diagnostics",
+    "v1.shop-access.email.job.job",
+    "v1.workflows.csv-import.csv-import.items",
+    "api",
+    "operations.oam",
+    "utilities.history"
+  ],
+  "modules": [
+    {
+      "name": "acceptKanbanCard",
+      "label": "Accept a Kanban Card",
+      "module": "app#arda-beta-public-2d4282-myuvmd:acceptKanbanCard",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "createEmailConfiguration",
+      "label": "Create an Email Configuration",
+      "module": "app#arda-beta-public-2d4282-myuvmd:createEmailConfiguration",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "createItemSupply",
+      "label": "Create an Item Supply",
+      "module": "app#arda-beta-public-2d4282-myuvmd:createItemSupply",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "createItem",
+      "label": "Create an Item",
+      "module": "app#arda-beta-public-2d4282-myuvmd:createItem",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "createSupplier",
+      "label": "Create a Supplier Affiliate",
+      "module": "app#arda-beta-public-2d4282-myuvmd:createSupplier",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "createVendorRole",
+      "label": "Create a Vendor Role",
+      "module": "app#arda-beta-public-2d4282-myuvmd:createVendorRole",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "findItemsByCode",
+      "label": "Find Items by Code",
+      "module": "app#arda-beta-public-2d4282-myuvmd:findItemsByCode",
+      "kind": "search",
+      "effect": "unknown",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "getCatalogueOptions",
+      "label": "Get Catalogue Options",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getCatalogueOptions",
+      "kind": "search",
+      "effect": "unknown",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "getDemandActivityLog",
+      "label": "Get Demand Activity Log",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getDemandActivityLog",
+      "kind": "search",
+      "effect": "read",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "getDemandHoldingCard",
+      "label": "Get Demand Holding a Card",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getDemandHoldingCard",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "getEmailConfigurationHistory",
+      "label": "Get Email Configuration History",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getEmailConfigurationHistory",
+      "kind": "search",
+      "effect": "read",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "getEmailConfigurationStatus",
+      "label": "Get Email Configuration Status",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getEmailConfigurationStatus",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.shop-access.email.diagnostics.diagnostics"
+    },
+    {
+      "name": "getEmailConfiguration",
+      "label": "Get an Email Configuration",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getEmailConfiguration",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "getEmailDiagnosticCoverage",
+      "label": "Get Email Diagnostic Coverage",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getEmailDiagnosticCoverage",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.shop-access.email.diagnostics.diagnostics"
+    },
+    {
+      "name": "getEmailMessageEvents",
+      "label": "Get Email Message Events",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getEmailMessageEvents",
+      "kind": "search",
+      "effect": "read",
+      "group": "v1.shop-access.email.diagnostics.diagnostics"
+    },
+    {
+      "name": "getEmailMessage",
+      "label": "Get an Email Message",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getEmailMessage",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.shop-access.email.job.job"
+    },
+    {
+      "name": "getEmailSuppressions",
+      "label": "Get Email Suppressions",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getEmailSuppressions",
+      "kind": "search",
+      "effect": "read",
+      "group": "v1.shop-access.email.diagnostics.diagnostics"
+    },
+    {
+      "name": "getEntityHistory",
+      "label": "Get Entity History",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getEntityHistory",
+      "kind": "search",
+      "effect": "read",
+      "group": "utilities.history"
+    },
+    {
+      "name": "getItem",
+      "label": "Get an Item",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getItem",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "getKanbanCard",
+      "label": "Get a Kanban Card",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getKanbanCard",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "getKanbanOrderQueue",
+      "label": "Get a Kanban Order Queue",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getKanbanOrderQueue",
+      "kind": "search",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "getOperationsConfiguration",
+      "label": "Get Operations Configuration",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getOperationsConfiguration",
+      "kind": "action",
+      "effect": "read",
+      "group": "operations.oam"
+    },
+    {
+      "name": "getOperationsVersion",
+      "label": "Get Operations Version",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getOperationsVersion",
+      "kind": "action",
+      "effect": "read",
+      "group": "operations.oam"
+    },
+    {
+      "name": "getOrderedKanbanCards",
+      "label": "Get Ordered Kanban Cards",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getOrderedKanbanCards",
+      "kind": "search",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "getSupplier",
+      "label": "Get a Supplier Affiliate",
+      "module": "app#arda-beta-public-2d4282-myuvmd:getSupplier",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "listItemSupplies",
+      "label": "List Item Supplies",
+      "module": "app#arda-beta-public-2d4282-myuvmd:listItemSupplies",
+      "kind": "search",
+      "effect": "unknown",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "listSupplierRoles",
+      "label": "List Supplier Roles",
+      "module": "app#arda-beta-public-2d4282-myuvmd:listSupplierRoles",
+      "kind": "search",
+      "effect": "unknown",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "lockEmailConfiguration",
+      "label": "Lock an Email Configuration",
+      "module": "app#arda-beta-public-2d4282-myuvmd:lockEmailConfiguration",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "lookupItems",
+      "label": "Look Up Items by Description",
+      "module": "app#arda-beta-public-2d4282-myuvmd:lookupItems",
+      "kind": "search",
+      "effect": "unknown",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "makeApiCall",
+      "label": "Make an API Call",
+      "module": "app#arda-beta-public-2d4282-myuvmd:makeApiCall",
+      "kind": "action",
+      "effect": "configurable",
+      "group": "api"
+    },
+    {
+      "name": "opsDeleteBusinessAffiliateBusinessAffiliateEntityId7114e2f2",
+      "label": "Delete Business Role (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsDeleteBusinessAffiliateBusinessAffiliateEntityId7114e2f2",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsDeleteItemItemEntityId66e1fafb",
+      "label": "Delete item by id with time coordinates (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsDeleteItemItemEntityId66e1fafb",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsDeleteItemItemEntityIdDraftb5e5ead1",
+      "label": "Retire Item Draft (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsDeleteItemItemEntityIdDraftb5e5ead1",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsDeleteItemItemParentItemIdSupplyItemSupplyId06ba1eb9",
+      "label": "Remove a Supply from an item (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsDeleteItemItemParentItemIdSupplyItemSupplyId06ba1eb9",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsDeleteItemSettings338ea865",
+      "label": "Retire Item Settings (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsDeleteItemSettings338ea865",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.settings"
+    },
+    {
+      "name": "opsDeleteKanbanKanbanCardEntityId7d7d81b8",
+      "label": "Delete kanban-card by id with time coordinates (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsDeleteKanbanKanbanCardEntityId7d7d81b8",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsDeleteReferenceDataItemItemSupplySupplyParentItef3994796",
+      "label": "Remove a Supply from an item (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsDeleteReferenceDataItemItemSupplySupplyParentItef3994796",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference-data.item.item-supply.supply"
+    },
+    {
+      "name": "opsDeleteShopAccessEmailConfigurationEntityIdd74746f4",
+      "label": "Remove email configuration (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsDeleteShopAccessEmailConfigurationEntityIdd74746f4",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "opsGetBusinessAffiliateBusinessAffiliateEntityIdHis4247370c",
+      "label": "Get a Page of business-affiliate-history by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetBusinessAffiliateBusinessAffiliateEntityIdHis4247370c",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsGetBusinessAffiliateBusinessAffiliateLookup21523886",
+      "label": "Lookup Business Affiliate names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetBusinessAffiliateBusinessAffiliateLookup21523886",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsGetBusinessAffiliateBusinessAffiliateQueryPage99c42e7f",
+      "label": "Get a Page of business-affiliate-query by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetBusinessAffiliateBusinessAffiliateQueryPage99c42e7f",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsGetBusinessAffiliateBusinessAffiliateRidEntityReef1f8b22",
+      "label": "Get business-affiliate by Record Id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetBusinessAffiliateBusinessAffiliateRidEntityReef1f8b22",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsGetBusinessAffiliateBusinessAffiliateWithDetailsee2c3ed7",
+      "label": "Get Business Affiliate with Roles",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetBusinessAffiliateBusinessAffiliateWithDetailsee2c3ed7",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsGetItemItemDistinctPage3bf13a18",
+      "label": "Get a page of distinct item-distinct values by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemItemDistinctPage3bf13a18",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemItemEntityIdDraft3026ebcb",
+      "label": "Get current Draft for item or create one if none exists (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemItemEntityIdDraft3026ebcb",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemItemEntityIdHistoryPage588d0a4f",
+      "label": "Get a Page of item-history by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemItemEntityIdHistoryPage588d0a4f",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemItemLookupPage0f184a55",
+      "label": "Get Item Lookup",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemItemLookupPage0f184a55",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemItemQueryPageff83bf67",
+      "label": "Get a Page of item-query by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemItemQueryPageff83bf67",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemItemRidEntityRecordId2f3921db",
+      "label": "Get item by Record Id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemItemRidEntityRecordId2f3921db",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupDepartmentscd5e7889",
+      "label": "Lookup department names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupDepartmentscd5e7889",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupFacilitiescdd237c2",
+      "label": "Lookup facility names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupFacilitiescdd237c2",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupItemsc937178a",
+      "label": "Lookup item names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupItemsc937178a",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupLocationsd8123c5b",
+      "label": "Lookup location names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupLocationsd8123c5b",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupSublocationsb66238ab",
+      "label": "Lookup sublocation names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupSublocationsb66238ab",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupSubtypes4402d51c",
+      "label": "Lookup subtype names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupSubtypes4402d51c",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupSuppliers6d95b7c2",
+      "label": "Lookup supplier names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupSuppliers6d95b7c2",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupTypes9b7efd28",
+      "label": "Lookup type names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupTypes9b7efd28",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupUnits7383adf9",
+      "label": "Lookup unit names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupUnits7383adf9",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemLookupUsecasesb49d3cb4",
+      "label": "Lookup use case names by fuzzy match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemLookupUsecasesb49d3cb4",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemSettings8ce72bee",
+      "label": "Get Item Settings",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemSettings8ce72bee",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.settings"
+    },
+    {
+      "name": "opsGetItemSettingsPrintinge426969b",
+      "label": "Get the printing settings",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemSettingsPrintinge426969b",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsGetItemUploadJobJobId4d1a92b0",
+      "label": "Get the current status of the CSV Upload Job for items",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetItemUploadJobJobId4d1a92b0",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.workflows.csv-import.csv-import.items"
+    },
+    {
+      "name": "opsGetKanbanKanbanCardCardEidDetails34c027c0",
+      "label": "Get Extended Details of a Kanban Card (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetKanbanKanbanCardCardEidDetails34c027c0",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsGetKanbanKanbanCardDetailsCardEid2e630482",
+      "label": "Get Extended Details of a Kanban Card (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetKanbanKanbanCardDetailsCardEid2e630482",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsGetKanbanKanbanCardDetailsPage4175f2c4",
+      "label": "Get a Page of Detailed Information of Kanban Cards that match a Query (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetKanbanKanbanCardDetailsPage4175f2c4",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsGetKanbanKanbanCardEntityId24be7672",
+      "label": "Get kanban-card by id with time coordinates",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetKanbanKanbanCardEntityId24be7672",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsGetKanbanKanbanCardEntityIdHistoryPage90df62b8",
+      "label": "Get a Page of kanban-card-history by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetKanbanKanbanCardEntityIdHistoryPage90df62b8",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsGetKanbanKanbanCardForItemItemEid70a0a1ff",
+      "label": "Get Kanban Cards for an Item",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetKanbanKanbanCardForItemItemEid70a0a1ff",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsGetKanbanKanbanCardQueryPage294e7cb8",
+      "label": "Get a Page of kanban-card-query by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetKanbanKanbanCardQueryPage294e7cb8",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsGetKanbanKanbanCardRidEntityRecordId303da39d",
+      "label": "Get kanban-card by Record Id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetKanbanKanbanCardRidEntityRecordId303da39d",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsGetOperationsDemandDemandItemEId37e244d5",
+      "label": "Get Demand Demand Item",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetOperationsDemandDemandItemEId37e244d5",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsGetOperationsDemandDemandItemEIdDeliveries013c14d0",
+      "label": "Get Demand Item Deliveries",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetOperationsDemandDemandItemEIdDeliveries013c14d0",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsGetOperationsDemandDemandItemFor6a0fbb9e",
+      "label": "Get Demand Item For",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetOperationsDemandDemandItemFor6a0fbb9e",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsGetProcurementOrderOrderEId40cb8e1a",
+      "label": "Get Order",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetProcurementOrderOrderEId40cb8e1a",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsGetProcurementOrderOrderEIdLogee4e0b1d",
+      "label": "Get Order Log",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetProcurementOrderOrderEIdLogee4e0b1d",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsGetProcurementOrderOrderEIdReadings3a6e6a08",
+      "label": "Get Order Readings",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetProcurementOrderOrderEIdReadings3a6e6a08",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsGetProcurementOrderOrderLineByOrderOrderIdb385480a",
+      "label": "Get Order Line By Order",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetProcurementOrderOrderLineByOrderOrderIdb385480a",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsGetProcurementOrderOrderLineEIdd6a9ad48",
+      "label": "Get Order Order Line",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetProcurementOrderOrderLineEIdd6a9ad48",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsGetProcurementOrderOrderLineEIdLoge6eb6c51",
+      "label": "Get Order Line Log",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetProcurementOrderOrderLineEIdLoge6eb6c51",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsGetReferenceDataBusinessAffiliateLookupVendorsf340f245",
+      "label": "Lookup VENDOR business roles by fuzzy name match",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetReferenceDataBusinessAffiliateLookupVendorsf340f245",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference-data.business-affiliate.business-affiliate.lookup"
+    },
+    {
+      "name": "opsGetReferenceDataItemItemSupplySupplyParentItemIda228b596",
+      "label": "Get the supplies for an item",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetReferenceDataItemItemSupplySupplyParentItemIda228b596",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference-data.item.item-supply.supply"
+    },
+    {
+      "name": "opsGetResourcesInventoryInventoryPoolEntityId0b9a65f2",
+      "label": "Get inventory-pool by id with time coordinates",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetResourcesInventoryInventoryPoolEntityId0b9a65f2",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsGetResourcesInventoryInventoryPoolEntityIdHistor705f8bb8",
+      "label": "Get a Page of inventory-pool-history by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetResourcesInventoryInventoryPoolEntityIdHistor705f8bb8",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsGetResourcesInventoryInventoryPoolQueryPage934b7173",
+      "label": "Get a Page of inventory-pool-query by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetResourcesInventoryInventoryPoolQueryPage934b7173",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsGetResourcesInventoryInventoryPoolRidEntityRecor68f7477a",
+      "label": "Get inventory-pool by Record Id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetResourcesInventoryInventoryPoolRidEntityRecor68f7477a",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsGetShopAccessEmailConfigurationEntityIdHistoryPac8a8b53b",
+      "label": "Get a Page of configuration-history by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetShopAccessEmailConfigurationEntityIdHistoryPac8a8b53b",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "opsGetShopAccessEmailConfigurationQueryPage462d774f",
+      "label": "Get a Page of configuration-query by page id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetShopAccessEmailConfigurationQueryPage462d774f",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "opsGetShopAccessEmailConfigurationRidEntityRecordIdea30cbb0",
+      "label": "Get configuration by Record Id",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetShopAccessEmailConfigurationRidEntityRecordIdea30cbb0",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "opsGetWorkflowsCsvImportItemsUploadJobJobIdf137753d",
+      "label": "Get the current status of the CSV Upload Job for items",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsGetWorkflowsCsvImportItemsUploadJobJobIdf137753d",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.workflows.csv-import.csv-import.items"
+    },
+    {
+      "name": "opsPostBusinessAffiliateBusinessAffiliateBulkc4b9c588",
+      "label": "Bulk Business Affiliate Bulk (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostBusinessAffiliateBusinessAffiliateBulkc4b9c588",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsPostBusinessAffiliateBusinessAffiliateEntityIdHid24dc9c3",
+      "label": "Search Business Affiliate History",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostBusinessAffiliateBusinessAffiliateEntityIdHid24dc9c3",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsPostItemImageUploadade71ca4",
+      "label": "Request image upload credentials for an item",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostItemImageUploadade71ca4",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsPostItemItemBulk6d27f914",
+      "label": "Bulk Item Bulk (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostItemItemBulk6d27f914",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsPostItemItemDistinct0cabd179",
+      "label": "Search Item Distinct",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostItemItemDistinct0cabd179",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsPostItemItemEntityIdHistory08e8c36e",
+      "label": "Search Item History",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostItemItemEntityIdHistory08e8c36e",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsPostItemItemPrintBreadcrumb395d4022",
+      "label": "Print Breadcrumbs for a list of items (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostItemItemPrintBreadcrumb395d4022",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsPostItemItemPrintLabeldd3cbb9c",
+      "label": "Print Labels for a list of items (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostItemItemPrintLabeldd3cbb9c",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsPostItemUploadJobJobIdad375022",
+      "label": "Create a CSV Upload Job for items (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostItemUploadJobJobIdad375022",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.workflows.csv-import.csv-import.items"
+    },
+    {
+      "name": "opsPostItemUploadJobUploadUrl92942c28",
+      "label": "Get a Signed Url and associated Job Id to upload a file to the system for items",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostItemUploadJobUploadUrl92942c28",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.workflows.csv-import.csv-import.items"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardb73a874b",
+      "label": "Create kanban-card (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardb73a874b",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardByItems74cd0260",
+      "label": "Get Kanban Cards for several Items (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardByItems74cd0260",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventCompleteProcessi55b5b9fd",
+      "label": "Complete Processing Event Complete Processing (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventCompleteProcessi55b5b9fd",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventDepleted2c03842",
+      "label": "Deplete Event Deplete (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventDepleted2c03842",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventFulfill9b83052f",
+      "label": "Fulfill Event Fulfill (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventFulfill9b83052f",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventProductionFailurbdfddea0",
+      "label": "Production Failure Event Production Failure (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventProductionFailurbdfddea0",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventReceivef832d77d",
+      "label": "Receive Event Receive (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventReceivef832d77d",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventRequestd9159052",
+      "label": "Request Event Request (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventRequestd9159052",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventShelve3144dc32",
+      "label": "Shelve Event Shelve (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventShelve3144dc32",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventUnmark6c0f012c",
+      "label": "Unmark Event Unmark (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventUnmark6c0f012c",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventUsec985bc6f",
+      "label": "Use Event Use (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventUsec985bc6f",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardCardEidEventWithdraw3d6113b7",
+      "label": "Withdraw Event Withdraw (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardCardEidEventWithdraw3d6113b7",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardDetailsStatusf8a7f293",
+      "label": "Get Detailed Information of Kanban Cards that match a Query and have a specific Status",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardDetailsStatusf8a7f293",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardEntityIdHistorya9a59845",
+      "label": "Search Kanban Card History",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardEntityIdHistorya9a59845",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardPrintCard54bc95d2",
+      "label": "Print Kanban Cards (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardPrintCard54bc95d2",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardSummary56800948",
+      "label": "Generate summary for kanban-card",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardSummary56800948",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardSummaryInProcess52ae092c",
+      "label": "Get a Summary of a Selection of Kanban Cards in `IN_PROCESS` status by Item",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardSummaryInProcess52ae092c",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostKanbanKanbanCardSummaryRequested4d133103",
+      "label": "Get a Summary of a Selection of Kanban Cards in `REQUESTED` status by Item",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostKanbanKanbanCardSummaryRequested4d133103",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemAddCycle53542485",
+      "label": "Add Cycle Demand Item Add Cycle (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemAddCycle53542485",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemAdjustQty084f82d5",
+      "label": "Set the advisory intent total (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemAdjustQty084f82d5",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemCanceldd43fb81",
+      "label": "Cancel Demand Item Cancel (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemCanceldd43fb81",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemComplete59b14d5d",
+      "label": "Complete Demand Item Complete (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemComplete59b14d5d",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemCreateeeda42d2",
+      "label": "Create a card-less demand task (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemCreateeeda42d2",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemCreateWithCycle0c776f8c",
+      "label": "Create a demand task from its first cycle (C/OP call-first) (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemCreateWithCycle0c776f8c",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemDelete0070d112",
+      "label": "Delete Demand Item Delete (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemDelete0070d112",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemDetachWithdrawn952f096f",
+      "label": "Detach Withdrawn Demand Item Detach Withdrawn (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemDetachWithdrawn952f096f",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemDistribute74f2d303",
+      "label": "Distribute Demand Item Distribute (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemDistribute74f2d303",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemRecordProduction43b33b7d",
+      "label": "Record Production Demand Item Record Production (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemRecordProduction43b33b7d",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemRelease1561a34a",
+      "label": "Release Demand Item Release (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemRelease1561a34a",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemRemoveCycle3bc92093",
+      "label": "Remove Cycle Demand Item Remove Cycle (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemRemoveCycle3bc92093",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemReopen71eabbac",
+      "label": "Reopen Demand Item Reopen (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemReopen71eabbac",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemResetQty6d8882a8",
+      "label": "Reset Qty Demand Item Reset Qty (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemResetQty6d8882a8",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemRevokeDelivery00a1235a",
+      "label": "Revoke Delivery Demand Item Revoke Delivery (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemRevokeDelivery00a1235a",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostOperationsDemandDemandItemStartProduction9e97a25b",
+      "label": "Start Production Demand Item Start Production (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostOperationsDemandDemandItemStartProduction9e97a25b",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.operations.demand.demand-item.demand-item"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderAnnotateae3a409c",
+      "label": "SET the order's internal notes (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderAnnotateae3a409c",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderCancel489367d7",
+      "label": "Cancel Order Cancel (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderCancel489367d7",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderClose3e7f6ea9",
+      "label": "Close Order Close (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderClose3e7f6ea9",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderCreate0a8d5ce1",
+      "label": "Create an order (DRAFT) (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderCreate0a8d5ce1",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderDeletedf6e0222",
+      "label": "Delete Order Delete (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderDeletedf6e0222",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineAddLine114ed5b6",
+      "label": "Add a line to a DRAFT order (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineAddLine114ed5b6",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineAnnotateLinef48acc2a",
+      "label": "Annotate Line Order Line Annotate Line (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineAnnotateLinef48acc2a",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineAttachDemandf7e29ae1",
+      "label": "Attach Demand Order Line Attach Demand (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineAttachDemandf7e29ae1",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineCloseLinedd678a92",
+      "label": "Close a line by act (L_OPEN → L_CLOSED) (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineCloseLinedd678a92",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineDetachDemand09826782",
+      "label": "Detach Demand Order Line Detach Demand (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineDetachDemand09826782",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineRecordAcknowledgmen555a704c",
+      "label": "Record Acknowledgment Order Line Record Acknowledgment (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineRecordAcknowledgmen555a704c",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineRecordReceipt13b24aaf",
+      "label": "Record Receipt Order Line Record Receipt (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineRecordReceipt13b24aaf",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineRemoveLine25853dea",
+      "label": "Remove (tombstone) a line while composing (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineRemoveLine25853dea",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineReverseReceipt18eae771",
+      "label": "Reverse Receipt Order Line Reverse Receipt (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineReverseReceipt18eae771",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderLineUpdateLine6f820c8b",
+      "label": "Set the requested quantity (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderLineUpdateLine6f820c8b",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order-line.order-line"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderResetToSupplier8b47d472",
+      "label": "Reset To Supplier Order Reset To Supplier (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderResetToSupplier8b47d472",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderSubmite3db2610",
+      "label": "Submit Order Submit (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderSubmite3db2610",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderUpdateDetails86006e4c",
+      "label": "SET the header-detail cluster (priority/assignee/notes; DRAFT only) (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderUpdateDetails86006e4c",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsPostProcurementOrderOrderUpdateSupplier3b0f4742",
+      "label": "Update Supplier Order Update Supplier (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostProcurementOrderOrderUpdateSupplier3b0f4742",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.procurement.order.order.order"
+    },
+    {
+      "name": "opsPostReferenceDataItemItemSupplySupplyParentItemI1e1a010e",
+      "label": "Add a Supply to an item (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostReferenceDataItemItemSupplySupplyParentItemI1e1a010e",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference-data.item.item-supply.supply"
+    },
+    {
+      "name": "opsPostResourcesInventoryInventoryPoolCreate048271fe",
+      "label": "Create an inventory pool (empty or seeded), pinned to an item (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostResourcesInventoryInventoryPoolCreate048271fe",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsPostResourcesInventoryInventoryPoolEntityIdExtra3efbee13",
+      "label": "Extract Inventory Pool Extract (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostResourcesInventoryInventoryPoolEntityIdExtra3efbee13",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsPostResourcesInventoryInventoryPoolEntityIdHistoa18236a7",
+      "label": "Search Inventory Pool History",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostResourcesInventoryInventoryPoolEntityIdHistoa18236a7",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsPostResourcesInventoryInventoryPoolEntityIdMergef806f27e",
+      "label": "Merge Inventory Pool Merge (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostResourcesInventoryInventoryPoolEntityIdMergef806f27e",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsPostResourcesInventoryInventoryPoolEntityIdTrans856fec0e",
+      "label": "Transfer Inventory Pool Transfer (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostResourcesInventoryInventoryPoolEntityIdTrans856fec0e",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsPostResourcesInventoryInventoryPoolQuery1357f29d",
+      "label": "Query inventory-pool-query first page",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostResourcesInventoryInventoryPoolQuery1357f29d",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.resources.inventory.inventory-pool.inventory-pool"
+    },
+    {
+      "name": "opsPostShopAccessEmailConfigurationBulk1926eeb8",
+      "label": "Bulk Configuration Bulk (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostShopAccessEmailConfigurationBulk1926eeb8",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "opsPostShopAccessEmailConfigurationEntityIdForceLoc71bc7dd2",
+      "label": "Force Lock Configuration Force Lock (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostShopAccessEmailConfigurationEntityIdForceLoc71bc7dd2",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "opsPostShopAccessEmailJob96682b5a",
+      "label": "Send a transactional email (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostShopAccessEmailJob96682b5a",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.job.job"
+    },
+    {
+      "name": "opsPostWorkflowsCsvImportItemsUploadJobJobIdfc138759",
+      "label": "Create a CSV Upload Job for items (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostWorkflowsCsvImportItemsUploadJobJobIdfc138759",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.workflows.csv-import.csv-import.items"
+    },
+    {
+      "name": "opsPostWorkflowsCsvImportItemsUploadJobUploadUrl4d8a2852",
+      "label": "Get a Signed Url and associated Job Id to upload a file to the system for items",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPostWorkflowsCsvImportItemsUploadJobUploadUrl4d8a2852",
+      "kind": "action",
+      "effect": "read",
+      "group": "v1.workflows.csv-import.csv-import.items"
+    },
+    {
+      "name": "opsPutBusinessAffiliateBusinessAffiliateBulkb7265d38",
+      "label": "Replace Business Affiliate Bulk (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPutBusinessAffiliateBusinessAffiliateBulkb7265d38",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsPutBusinessAffiliateBusinessAffiliateEntityIdRolbe907658",
+      "label": "Update Business Role (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPutBusinessAffiliateBusinessAffiliateEntityIdRolbe907658",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "opsPutItemItemBulkd1d602ef",
+      "label": "Replace Item Bulk (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPutItemItemBulkd1d602ef",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsPutItemItemEntityIdDraft2c0678e5",
+      "label": "Update Draft for item (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPutItemItemEntityIdDraft2c0678e5",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "opsPutItemSettingsd9c5f445",
+      "label": "Replace Item Settings (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPutItemSettingsd9c5f445",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.settings"
+    },
+    {
+      "name": "opsPutKanbanKanbanCardCardEidNotes13f3cc93",
+      "label": "Update the notes of a Kanban Card (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPutKanbanKanbanCardCardEidNotes13f3cc93",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPutKanbanKanbanCardEntityIdeb13a11d",
+      "label": "Update a Kanban Card (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPutKanbanKanbanCardEntityIdeb13a11d",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "opsPutReferenceDataItemItemSupplySupplyParentItemId5424cc26",
+      "label": "Update a Supply for an item (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPutReferenceDataItemItemSupplySupplyParentItemId5424cc26",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference-data.item.item-supply.supply"
+    },
+    {
+      "name": "opsPutShopAccessEmailConfigurationBulkbb965533",
+      "label": "Replace Configuration Bulk (Write)",
+      "module": "app#arda-beta-public-2d4282-myuvmd:opsPutShopAccessEmailConfigurationBulkbb965533",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "provisionEmailConfiguration",
+      "label": "Provision an Email Configuration",
+      "module": "app#arda-beta-public-2d4282-myuvmd:provisionEmailConfiguration",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "reprovisionEmailConfiguration",
+      "label": "Re-provision an Email Configuration",
+      "module": "app#arda-beta-public-2d4282-myuvmd:reprovisionEmailConfiguration",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "reverifyEmailConfiguration",
+      "label": "Re-verify an Email Configuration",
+      "module": "app#arda-beta-public-2d4282-myuvmd:reverifyEmailConfiguration",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "restoreEmailConfiguration",
+      "label": "Restore an Email Configuration",
+      "module": "app#arda-beta-public-2d4282-myuvmd:restoreEmailConfiguration",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "retireSupplier",
+      "label": "Retire a Supplier Affiliate",
+      "module": "app#arda-beta-public-2d4282-myuvmd:retireSupplier",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "searchEmailConfigurations",
+      "label": "Search Email Configurations",
+      "module": "app#arda-beta-public-2d4282-myuvmd:searchEmailConfigurations",
+      "kind": "search",
+      "effect": "read",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "searchEmailMessages",
+      "label": "Search Email Messages",
+      "module": "app#arda-beta-public-2d4282-myuvmd:searchEmailMessages",
+      "kind": "search",
+      "effect": "read",
+      "group": "v1.shop-access.email.diagnostics.diagnostics"
+    },
+    {
+      "name": "searchItems",
+      "label": "Search Items",
+      "module": "app#arda-beta-public-2d4282-myuvmd:searchItems",
+      "kind": "search",
+      "effect": "unknown",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "searchKanbanCards",
+      "label": "Search Kanban Cards",
+      "module": "app#arda-beta-public-2d4282-myuvmd:searchKanbanCards",
+      "kind": "search",
+      "effect": "read",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "searchSuppliers",
+      "label": "Search Supplier Affiliates",
+      "module": "app#arda-beta-public-2d4282-myuvmd:searchSuppliers",
+      "kind": "search",
+      "effect": "unknown",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    },
+    {
+      "name": "startKanbanProcessing",
+      "label": "Start Kanban Processing",
+      "module": "app#arda-beta-public-2d4282-myuvmd:startKanbanProcessing",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.resources.kanban.kanban-card.kanban-card"
+    },
+    {
+      "name": "unlockEmailConfiguration",
+      "label": "Unlock an Email Configuration",
+      "module": "app#arda-beta-public-2d4282-myuvmd:unlockEmailConfiguration",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.shop-access.email.configuration.configuration"
+    },
+    {
+      "name": "updateItemSupply",
+      "label": "Update an Item Supply",
+      "module": "app#arda-beta-public-2d4282-myuvmd:updateItemSupply",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "updateItem",
+      "label": "Update an Item",
+      "module": "app#arda-beta-public-2d4282-myuvmd:updateItem",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.item.item.item"
+    },
+    {
+      "name": "updateSupplier",
+      "label": "Update a Supplier Affiliate",
+      "module": "app#arda-beta-public-2d4282-myuvmd:updateSupplier",
+      "kind": "action",
+      "effect": "write",
+      "group": "v1.reference.business-affiliate.business-affiliate.business-affiliate"
+    }
+  ]
+}

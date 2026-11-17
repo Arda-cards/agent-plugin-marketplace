@@ -12,7 +12,20 @@ requirements apply. Use only discovered capabilities.
 
 ## Authentication and capabilities
 
-Open `/mcp`, select the intended named connection, and authenticate in the browser.
+In **Claude Code or Claude Desktop Code tab**, open `/mcp`, select the intended named
+connection, and authenticate or re-authorize it in the browser. In **Codex**, inspect
+`codex mcp list`, verify the intended connection's endpoint/environment, then run:
+
+```sh
+codex mcp login <connection-name> --scopes 'workflow:write,email:read,email:manage,offline_access'
+```
+
+Use this scoped login for initial authorization and renewed consent, whether the connection
+comes from the native plugin or manual configuration. If Codex retains an old grant, run
+`codex mcp logout <connection-name>` and repeat the scoped login for that same intended
+connection. Complete the provider's browser flow and verify the actual consent; do not copy
+credentials between connections or paste passwords, tokens or callback URLs into prompts.
+
 The plugin requests `workflow:write email:read email:manage offline_access` for every
 connection. Existing grants do not expand through an update or token refresh. Re-authorize
 the intended connection to request new scopes, then refresh discovery or restart the session.
@@ -26,10 +39,16 @@ each environment, subject to current permissions and scopes.
 
 ## Skills
 
-- `/arda-cards-operations:getting-started`
-- `/arda-cards-operations:catalogue-maintenance`
-- `/arda-cards-operations:card-ordering`
-- `/arda-cards-operations:email-operations`
+| Workflow | Claude Code / Desktop Code tab | Codex |
+| --- | --- | --- |
+| Getting started | `/arda-cards-operations:getting-started` | `$arda-cards-operations:getting-started` |
+| Catalogue maintenance | `/arda-cards-operations:catalogue-maintenance` | `$arda-cards-operations:catalogue-maintenance` |
+| Card ordering | `/arda-cards-operations:card-ordering` | `$arda-cards-operations:card-ordering` |
+| Email operations | `/arda-cards-operations:email-operations` | `$arda-cards-operations:email-operations` |
+
+Invoke the qualified skill name or choose the discovered skill in the skill picker.
+Refresh discovery/session state after authentication
+as required by the client; installation alone does not establish tool availability.
 
 ## Confirming proposed changes
 
