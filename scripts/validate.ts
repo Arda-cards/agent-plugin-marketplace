@@ -74,7 +74,7 @@ export function validateMakeCatalog(profile: unknown, catalog: unknown): void {
     names.add(module.name);
     assert.ok(typeof module.label === 'string' && module.label.length > 0);
     assert.ok(module.kind === 'action' || module.kind === 'search');
-    assert.ok(['read', 'write', 'unknown', 'configurable'].includes(String(module.effect)));
+    assert.ok(typeof module.effect === 'string' && ['read', 'write', 'unknown', 'configurable'].includes(module.effect));
     assert.ok(catalog.groups.includes(module.group));
     assert.equal(module.module, app === null ? null : `${app}:${module.name}`);
   }

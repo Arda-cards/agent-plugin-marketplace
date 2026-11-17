@@ -13,6 +13,8 @@ await test('the public customer guide PDF records the exact committed Markdown s
   const pdf = readFileSync(pdfPath);
   assert.ok(pdf.subarray(0, 5).equals(Buffer.from('%PDF-')));
   assert.ok(pdf.includes(Buffer.from(`Markdown SHA256: ${digest}`)), 'Regenerate and copy the customer PDF with its Markdown source.');
+  assert.ok(pdf.includes(Buffer.from('/URI (https://mcp.make.com/v2)')), 'The Make MCP setup link must use the exact endpoint.');
+  assert.ok(!pdf.includes(Buffer.from('/URI (https://mcp.make.com/v2.)')), 'Sentence punctuation must not become part of the Make MCP link.');
   validateContent(markdown.toString('utf8'));
 });
 

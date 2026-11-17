@@ -73,6 +73,7 @@ await test('public Make routing, module identity and declared effects stay bound
   for (const change of [{ app: 'app#another-app' }, { version: 2 }, { groups: [] }, { connectionId: 'unexpected' },
     { modules: [{ ...catalog.modules[0], module: 'app#another-app:getItem' }] },
     { modules: [{ ...catalog.modules[0], effect: 'safe' }] },
+    { modules: [{ ...catalog.modules[0], effect: ['read'] }] },
     { modules: [{ ...catalog.modules[0], connectionId: 'unexpected' }] },
     { modules: [catalog.modules[0], catalog.modules[0]] }]) {
     assert.throws(() => validateMakeCatalog(pending, { ...catalog, ...change }));

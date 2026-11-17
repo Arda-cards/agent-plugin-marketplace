@@ -102,8 +102,11 @@ codex mcp list
 ```
 
 Both clients load the same plugin format. Reuse your intended existing Make MCP
-connection when it points to https://mcp.make.com/v2. Do not overwrite another
-explicit server configuration. For a confirmed server named make, Codex sign-in is:
+connection when it points to this endpoint:
+https://mcp.make.com/v2
+
+Do not overwrite another explicit server configuration. For a confirmed server
+named make, Codex sign-in is:
 
 ```sh
 codex mcp login make
