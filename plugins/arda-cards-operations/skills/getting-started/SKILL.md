@@ -10,16 +10,26 @@ Help the user work with the selected Arda environment MCP server.
    Discover `set_confirmation_mode` before offering automatic confirmation. A smaller set of schemas
    loaded into the model context is not the discovered tool count: load/search the
    needed tools first. Refresh discovery after server schema changes as the client requires.
-2. If the server needs authentication, direct the user to `/mcp`, select the
-   plugin's intended connection, and complete browser sign-in. Confirm that consent
-   includes `workflow:write`, `email:read` and `email:manage`; plugin `0.1.0` requests
+2. If the server needs authentication or renewed consent, use the current client's route:
+
+   - **Claude Code or Claude Desktop Code tab:** open `/mcp`, select the plugin's
+     intended connection, and authenticate or re-authorize it in the browser.
+   - **Codex:** inspect `codex mcp list`, verify the intended named connection's
+     endpoint/environment, and run `codex mcp login <connection-name> --scopes 'workflow:write,email:read,email:manage,offline_access'`.
+     Use that scoped login for initial authorization and re-authorization. If the
+     client retains an old grant, use `codex mcp logout <connection-name>` and then
+     repeat the scoped login for that same intended connection; do not log out another one.
+
+   Confirm that actual browser consent includes `workflow:write`, `email:read` and `email:manage`;
+   plugin `0.2.0` requests
    `workflow:write email:read email:manage offline_access`. Existing grants do not expand automatically.
    If only `query_business_affiliates` and `get_business_affiliate` appear, explain
    that an affiliate-only grant exposes exactly those two tools. Have the user update
-   to current plugin from `main`, re-authorize this connection through `/mcp`, and start
+   to current plugin from `main`, re-authorize this connection using the client-specific route above, and start
    a new session to refresh discovery. Token refresh or a new chat alone does not
-   expand a grant. A manually configured connection needs its own `oauth.scopes`
-   setting. Do not request an API key, password, token, or OAuth URL in chat.
+   expand a grant. A manually configured connection needs its own explicit scope
+   request through the client's supported configuration or scoped login. Do not
+   request an API key, password, token, or OAuth URL in chat.
 3. Explain which environment the connection targets and that requests act as the signed-in Arda user. Do
    not infer the current user's identity or tenant from a record's author fields.
 4. For an authorized read request, use the corresponding available read tool and
@@ -29,7 +39,8 @@ Help the user work with the selected Arda environment MCP server.
    are available. For email, follow `email-operations`: start with the three supported reads
    `search_email_configurations`, `get_email_configuration` and `get_email_message`.
    These require independent `email:read` or supported `email:manage` consent. Update from
-   `main`, re-authorize through `/mcp`, verify `email:read` and `email:manage` on actual browser consent, then
+   `main`, re-authorize the intended connection using the client-specific route in step 2,
+   verify `email:read` and `email:manage` on actual browser consent, then
    refresh discovery. A manually configured connection needs its own explicit requested scopes.
    Never claim email is deployed from this skill or version alone. Discover the actual
    capabilities of each connection separately; tool counts are not permission guarantees.

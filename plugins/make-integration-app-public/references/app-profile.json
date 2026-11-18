@@ -1,0 +1,10 @@
+{
+  "status": "pending-publication",
+  "app": "app#arda-beta-public-2d4282-myuvmd",
+  "version": 1,
+  "invitationUrl": null,
+  "source": null,
+  "environment": "prod",
+  "apiBaseUrl": "https://prod.alpha001.io.arda.cards",
+  "authBaseUrl": "https://prod-alpha001.auth.us-east-1.amazoncognito.com"
+}
