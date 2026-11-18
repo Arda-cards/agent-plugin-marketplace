@@ -8,6 +8,11 @@
       "name": "arda-cards-operations",
       "source": "./plugins/arda-cards-operations",
       "description": "Connect to Arda prod for catalogue, card and email workflows."
+    },
+    {
+      "name": "make-integration-app-public",
+      "source": "./plugins/make-integration-app-public",
+      "description": "Build, run and diagnose Arda Beta (Public) production scenarios through Make MCP using your own connections."
     }
   ],
   "description": "Arda operations marketplace for prod."

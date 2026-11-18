@@ -1,6 +1,7 @@
 # Arda Beta (Public): app and authorization
 
-**Awaiting publication.** This bundle is staged for review and is not registered in the marketplace. No installation invitation is available. Do not install a similarly named app or configure/run this pending app.
+Install [Arda Beta (Public)](https://www.make.com/en/hq/app-invitation/bfb5eedba3373f70b002e36ace3e3a05) in your own Make organization.
+Technical app identity: `app#arda-beta-public-2d4282-myuvmd`, version 1.
 
 The authoritative [app profile](app-profile.json) binds the published installation
 invitation, technical app identity, native version, production target and verified
