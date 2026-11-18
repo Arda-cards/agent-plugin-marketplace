@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.0] - 2026-11-18
+
+### Added
+
+- Publish the production-only Make agent plugin with its installation invitation, verified release provenance and complete module catalog. (#6)
+
 ## [0.2.0] - 2026-11-18
 
 ### Added
