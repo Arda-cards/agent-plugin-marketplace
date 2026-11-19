@@ -21,7 +21,7 @@ Help the user work with the selected Arda environment MCP server.
      repeat the scoped login for that same intended connection; do not log out another one.
 
    Confirm that actual browser consent includes `workflow:write`, `email:read` and `email:manage`;
-   plugin `0.3.1` requests
+   plugin `0.3.2` requests
    `workflow:write email:read email:manage offline_access`. Existing grants do not expand automatically.
    If only `query_business_affiliates` and `get_business_affiliate` appear, explain
    that an affiliate-only grant exposes exactly those two tools. Have the user update

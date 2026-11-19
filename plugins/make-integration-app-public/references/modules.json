@@ -1,8 +1,8 @@
 {
   "source": {
-    "commit": "3c2382949e56002b867dd2e049233393ac22a302",
-    "artifactId": "8baed3e8d8d7ee3d42915182ad0ba103c6bf939ec7b1f010f4e8cb6a6d7a7861",
-    "release": "v0.9.0"
+    "commit": "7bd507a5326a4041845da879f9bbaff701b26afc",
+    "artifactId": "42aac9cd36a740fa2bb85e04f02bdb0ac2e3a2bf02bd3af3817951d05a6e477f",
+    "release": "v0.10.1"
   },
   "app": "app#arda-beta-public-2d4282-myuvmd",
   "version": 1,
