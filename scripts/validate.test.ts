@@ -66,6 +66,37 @@ await test('Make and direct Arda MCP configurations cannot substitute for each o
   }
 });
 
+await test('public Make profiles accept both approved production pool OAuth hosts', () => {
+  for (const authBaseUrl of [
+    'https://prod-alpha001.auth.us-east-1.amazoncognito.com',
+    'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com',
+  ]) {
+    for (const profile of [pending, published]) {
+      assert.doesNotThrow(() => validateMakeProfile({ ...profile, authBaseUrl }));
+    }
+  }
+});
+
+await test('public Make profiles reject other OAuth hosts and URL variants', () => {
+  for (const authBaseUrl of [
+    'https://dev-lowercase-alpha002.auth.us-east-1.amazoncognito.com',
+    'https://stage-lowercase-alpha002.auth.us-east-1.amazoncognito.com',
+    'https://demo-lowercase-alpha001.auth.us-east-1.amazoncognito.com',
+    'https://prod-lowercase-alpha002.auth.us-east-1.amazoncognito.com',
+    'https://prod-lowercase-alpha001.auth.eu-west-1.amazoncognito.com',
+    'https://another.auth.us-east-1.amazoncognito.com',
+    'http://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com',
+    'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com/',
+    'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com/oauth2',
+    'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com?client=other',
+    'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com.evil.test',
+    null,
+    1,
+  ]) {
+    assert.throws(() => validateMakeProfile({ ...published, authBaseUrl }));
+  }
+});
+
 await test('public Make routing, module identity and declared effects stay bound to its production profile', () => {
   for (const change of [{ environment: 'demo' }, { apiBaseUrl: 'https://example.test' }, { authBaseUrl: 'https://example.test' }]) {
     assert.throws(() => validateMakeProfile({ ...pending, ...change }));

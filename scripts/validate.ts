@@ -30,7 +30,8 @@ export function validateMakeProfile(profile: unknown): void {
   assert.ok(profile.status === 'pending-publication' || profile.status === 'published');
   assert.equal(profile.environment, 'prod');
   assert.equal(profile.apiBaseUrl, 'https://prod.alpha001.io.arda.cards');
-  assert.equal(profile.authBaseUrl, 'https://prod-alpha001.auth.us-east-1.amazoncognito.com');
+  assert.ok(profile.authBaseUrl === 'https://prod-alpha001.auth.us-east-1.amazoncognito.com' ||
+    profile.authBaseUrl === 'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com');
   if (profile.app === null) assert.equal(profile.version, null);
   else {
     assert.ok(typeof profile.app === 'string' && /^app#[a-z0-9-]+$/.test(profile.app));
