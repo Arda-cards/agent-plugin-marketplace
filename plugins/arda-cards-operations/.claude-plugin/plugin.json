@@ -1,6 +1,6 @@
 {
   "name": "arda-cards-operations",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Connect to Arda prod for catalogue, card and email workflows.",
   "author": {
     "name": "Arda"

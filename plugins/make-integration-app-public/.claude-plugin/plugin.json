@@ -1,6 +1,6 @@
 {
   "name": "make-integration-app-public",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Build, run and diagnose Arda Beta (Public) production scenarios through Make MCP using your own connections.",
   "author": {
     "name": "Arda"
