@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1] - 2026-11-19
+
+### Fixed
+
+- Prepare public Make plugin validation for the production Cognito pool migration while requiring fresh release evidence. (#7)
+- Align connection guidance and tester documentation with the qualified profile and fresh-connection cutover. (#7)
+- Synchronize public agent plugins with reviewed source. (#8)
+
 ## [0.3.0] - 2026-11-18
 
 ### Added
