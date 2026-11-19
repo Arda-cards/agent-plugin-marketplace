@@ -26,6 +26,13 @@ const published = {
   ...pending, status: 'published', invitationUrl: `https://www.make.com/en/hq/app-invitation/${'a'.repeat(32)}`,
   source: { commit: 'b'.repeat(40), artifactId: 'c'.repeat(64), release: 'v0.9.0' },
 };
+const lowercaseAuthBaseUrl = 'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com';
+const legacySource = {
+  commit: '3c2382949e56002b867dd2e049233393ac22a302',
+  artifactId: '8baed3e8d8d7ee3d42915182ad0ba103c6bf939ec7b1f010f4e8cb6a6d7a7861',
+  release: 'v0.9.0',
+};
+const freshSource = { commit: 'd'.repeat(40), artifactId: 'e'.repeat(64), release: 'v0.9.1' };
 const catalog = {
   app: pending.app, version: pending.version, source: pending.source, groups: ['v1.reference.item.item.item'],
   modules: [{ name: 'getItem', label: 'Get an Item', module: `${pending.app}:getItem`, kind: 'action', effect: 'read', group: 'v1.reference.item.item.item' }],
@@ -72,9 +79,25 @@ await test('public Make profiles accept both approved production pool OAuth host
     'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com',
   ]) {
     for (const profile of [pending, published]) {
-      assert.doesNotThrow(() => validateMakeProfile({ ...profile, authBaseUrl }));
+      const source = profile.status === 'published' && authBaseUrl === lowercaseAuthBaseUrl ? freshSource : profile.source;
+      assert.doesNotThrow(() => validateMakeProfile({ ...profile, authBaseUrl, source }));
     }
   }
+});
+
+await test('published lowercase profiles require fresh commit, artifact and release provenance', () => {
+  for (const source of [
+    legacySource,
+    { ...freshSource, commit: legacySource.commit },
+    { ...freshSource, artifactId: legacySource.artifactId },
+    { ...freshSource, release: legacySource.release },
+    { ...freshSource, release: '0.9.0' },
+  ]) {
+    assert.throws(() => validateMakeProfile({ ...published, authBaseUrl: lowercaseAuthBaseUrl, source }));
+  }
+  assert.doesNotThrow(() => validateMakeProfile({ ...published, source: legacySource }));
+  assert.doesNotThrow(() => validateMakeProfile({ ...published, authBaseUrl: lowercaseAuthBaseUrl, source: freshSource }));
+  assert.doesNotThrow(() => validateMakeProfile({ ...pending, authBaseUrl: lowercaseAuthBaseUrl }));
 });
 
 await test('public Make profiles reject other OAuth hosts and URL variants', () => {
