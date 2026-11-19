@@ -30,7 +30,8 @@ export function validateMakeProfile(profile: unknown): void {
   assert.ok(profile.status === 'pending-publication' || profile.status === 'published');
   assert.equal(profile.environment, 'prod');
   assert.equal(profile.apiBaseUrl, 'https://prod.alpha001.io.arda.cards');
-  assert.equal(profile.authBaseUrl, 'https://prod-alpha001.auth.us-east-1.amazoncognito.com');
+  assert.ok(profile.authBaseUrl === 'https://prod-alpha001.auth.us-east-1.amazoncognito.com' ||
+    profile.authBaseUrl === 'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com');
   if (profile.app === null) assert.equal(profile.version, null);
   else {
     assert.ok(typeof profile.app === 'string' && /^app#[a-z0-9-]+$/.test(profile.app));
@@ -47,6 +48,14 @@ export function validateMakeProfile(profile: unknown): void {
     assert.ok(typeof profile.source.commit === 'string' && /^[a-f0-9]{40}$/.test(profile.source.commit));
     assert.ok(typeof profile.source.artifactId === 'string' && /^[a-f0-9]{64}$/.test(profile.source.artifactId));
     assert.ok(typeof profile.source.release === 'string' && /^v\d+\.\d+\.\d+$/.test(profile.source.release));
+    if (profile.authBaseUrl === 'https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com') {
+      assert.notEqual(profile.source.commit, '3c2382949e56002b867dd2e049233393ac22a302',
+        'Lowercase Cognito publication requires a newly qualified source commit');
+      assert.notEqual(profile.source.artifactId, '8baed3e8d8d7ee3d42915182ad0ba103c6bf939ec7b1f010f4e8cb6a6d7a7861',
+        'Lowercase Cognito publication requires a newly qualified artifact');
+      assert.notEqual(profile.source.release.replace(/^v/, ''), '0.9.0',
+        'Lowercase Cognito publication requires a newly qualified release');
+    }
   }
   validateContent(JSON.stringify(profile));
 }

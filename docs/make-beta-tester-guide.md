@@ -5,12 +5,10 @@
 Check the current release status in the authoritative app profile:
 https://github.com/Arda-cards/agent-plugin-marketplace/blob/main/plugins/make-integration-app-public/references/app-profile.json
 
-Proceed only when it records published status, the actual installation invitation,
-exact technical app identity/version and verified release provenance. If its status
-is pending-publication, stop: there is no customer installation to use yet. A pending
-bundle or successful plugin installation is not an app release. Do not substitute
-another similarly named app. The current invitation and app identity are also linked
-from the public plugin README:
+Proceed only when the profile records published status, its installation invitation,
+exact app identity/version and verified source provenance. If pending-publication,
+stop: plugin installation does not publish or qualify the app. Use only that app
+and invitation. The public plugin README also links its current installation details:
 https://github.com/Arda-cards/agent-plugin-marketplace/blob/main/plugins/make-integration-app-public/README.md
 
 ## 2. What you can test
@@ -29,7 +27,8 @@ create drafts or otherwise have effects and output shapes vary between modules.
 This customer app always targets production:
 https://prod.alpha001.io.arda.cards
 
-Its browser sign-in provider is:
+The published app profile records its active browser sign-in provider in
+authBaseUrl. The pre-migration provider is:
 https://prod-alpha001.auth.us-east-1.amazoncognito.com
 
 There is no Environment selector or editable tenant/identity-header field. Your
@@ -51,6 +50,16 @@ Do not borrow another person's saved connection or switch a scenario's binding c
 Reconnect interactively when consent expires or is revoked. Updating the plugin or
 running scenarios does not extend the original refresh-token deadline. Make account
 sign-in and Arda account sign-in are separate; both must succeed for their own purposes.
+
+### Production sign-in pool migration
+
+Production sign-in is moving to:
+https://prod-lowercase-alpha001.auth.us-east-1.amazoncognito.com
+
+After the coordinator confirms the updated app and published profile, create a fresh
+production connection, select it in every module and repeat the one-item read below.
+Old refresh tokens and their 90-day lifetime do not transfer. First sign-in can
+migrate your account and issue a new user identity; preserve your scenario/run history.
 
 ## 4. First scenario: Search Items then Get an Item
 
@@ -77,9 +86,7 @@ Inspect the actual operation and all downstream modules before treating a flow a
 The public marketplace needs no private GitHub checkout. Its repository is:
 https://github.com/Arda-cards/agent-plugin-marketplace
 
-If the profile is pending-publication, the public Make bundle is staged for review
-and is not registered in that marketplace. Run the following installation commands
-only when the app profile is published and the marketplace lists
+Use these commands only when the profile is published and the marketplace lists
 make-integration-app-public.
 
 For Claude Code, enter:
